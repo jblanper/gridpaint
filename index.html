@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" /> 
+  <title>Grid paint</title>
+  <style>
+body {
+  margin: 0;
+  font: 12px sans-serif;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  background-color: #ffffffdd;
+  transition: all 800ms ease-out;
+  padding-bottom: 60px;
+  margin-right: 5em;
+}
+
+.hide {
+  transition: all 800ms ease-in;
+  transform: translateX(-100%);
+}
+
+#ui, #intro, #close {
+  padding: 10px;
+}
+
+#ui {
+  display: flex;
+  max-width: 35em;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+#ui div {
+  width: 15em;
+  padding: 5px;
+}
+
+#intro {
+  width: 15em;
+}
+
+#intro p {
+  margin: 0;
+  font-size: 110%;
+}
+
+#intro h1 {
+  font-size: 150%;
+}
+
+.slider, p, h1 { padding: 3px; }
+
+button {
+  background-color: #fff;
+  border: 3px solid #000;
+  padding: 1ex;
+}
+
+#toggle-panel { width: 0px; }
+
+#toggle-panel-btn {
+  width: 2.5em;
+  margin: 5px;
+}
+
+.toggle {
+  color: green;
+  border-color: green;
+  background-color: #fff;
+}
+
+.toggle:hover {
+  color: #fff;
+  border-color: #000;
+  background-color: #000;
+}
+
+.deactivated {
+  color: red;
+  border-color: red;
+  background-color: #fff;
+}
+
+#signature {
+  position: absolute;
+  bottom: 10px;
+  left: 45%;
+}
+
+#signature:hover {
+    color: #6da0bd;
+}
+
+#signature:hover path {
+    fill: #6da0bd;
+}
+  </style>
+</head>
+<body>
+  <div id="panel">
+    <div id="ui">
+      <div id="intro">
+        <h1>Grid paint</h1>
+        <p>Experimental drawing web app using a grid of points connected by springs modelled after cloth physics.</p>
+        <p>Grab the nodes with the mouse and move the grid to draw a design. The color oscillates from white to black. The strength of the springs can be modified with the sliders.</p>
+        <p>Keys: "e" (erase), "r" (reload), "space" (pause)</p>
+      </div>
+    </div>
+    <div id="toggle-panel"></div>
+    <div>
+      <a id="signature" href="https://www.joseblancoperales.com">
+        <svg width="50" height="50" version="1.1" viewBox="0 0 13.229166 13.229167" xmlns="http://www.w3.org/2000/svg"><g><circle cx="6.6146" cy="6.6146" r="6.6146" fill="#fff" style="paint-order:normal"/><path d="m6.6152 0.023438c-3.6369 0-6.5918 2.9548-6.5918 6.5918 0 3.6369 2.9548 6.5898 6.5918 6.5898 3.6369 0 6.5898-2.9529 6.5898-6.5898 0-3.6369-2.9529-6.5918-6.5898-6.5918zm0 0.50781c3.363 0 6.084 2.721 6.084 6.084s-2.721 6.084-6.084 6.084-6.084-2.721-6.084-6.084 2.721-6.084 6.084-6.084z" color="#000000" color-rendering="auto" dominant-baseline="auto" fill="#800000" image-rendering="auto" shape-rendering="auto" solid-color="#000000" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;isolation:auto;mix-blend-mode:normal;paint-order:normal;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/><g id="logo-body" transform="translate(-.19844 .19844)" fill="#800000"><path d="m8.1166 5.4546v5.6823c1.5655-0.0045 2.8332-1.2747 2.8332-2.8411 0-1.5665-1.2678-2.8369-2.8332-2.8411z"/><path d="m8.1204 1.6954v3.2544c0.89579-0.00377 1.6209-0.7306 1.6209-1.6272 0-0.89658-0.72514-1.6238-1.6209-1.6272z"/><path d="m5.8204 1.6958v6.996a0.81365 0.81365 0 0 1 -0.8137 0.8137 0.81365 0.81365 0 0 1 -0.8137 -0.8137l-1.5168 0.72437a2.4409 2.4409 0 0 0 2.3305 1.7167 2.4409 2.4409 0 0 0 2.4411 -2.4411v-6.996z" style="paint-order:normal"/></g></g></svg>
+      </a>
+    </div>
+  </div>
+  <canvas></canvas>
+  <script type="module" src="sketch.js"></script>
+  <!-- <script nomodule src="bundle.js"></script> -->
+</body>
+</html>
