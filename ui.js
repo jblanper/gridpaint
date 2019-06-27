@@ -1,5 +1,6 @@
 import Slider from './slider.js';
 import ToggleButton from './toggleButton.js';
+import Button from './button.js';
 
 function createEmptyPanel (label) {
     const ui = document.querySelector('#ui');
@@ -12,7 +13,26 @@ function createEmptyPanel (label) {
     return div;
 }
 
-export function createControlPanel ({mesh, oscillator, updateFn}) {
+export function createControlPanel ({
+    mesh, oscillator, updateFn, eraseFn, animationToggleFn, saveImgFn
+}) {
+
+    const intro = document.querySelector('#intro');
+
+    const erase = new Button({
+        parent: intro, fn: eraseFn, updateFn: null, label: 'erase'
+    });
+
+    const toggleAnimation = new ToggleButton({
+        parent: intro, prop: 'toggle-animation-btn', value: true,
+        labelTrue: 'pause', labelFalse: 'play',
+        updateFn: animationToggleFn
+    });
+
+    const saveImg = new Button({
+        parent: intro, fn: saveImgFn, updateFn: null, label: 'get PNG'
+    });
+
     const div1 = createEmptyPanel('Grid options');
 
     const rowNum = new Slider({
@@ -69,7 +89,8 @@ export function createControlPanel ({mesh, oscillator, updateFn}) {
     return {
         rowNum, sep, radius, lineWidth,
         structuralSprings, shearSprings, bendSprings,
-        oscAngleVel, oscVshift
+        oscAngleVel, oscVshift,
+        erase, toggleAnimation
     };
 }
 

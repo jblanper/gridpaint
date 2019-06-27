@@ -61,12 +61,11 @@ export default class Particle {
         }
     }
 
-    handleClick (mx, my) {
+    handleClick (mx, my, isMobile = false) {
         const mousePosition = new Vector(mx, my);
         const dist = mousePosition.getDistance(this.position);
 
-        //if (dist < this.radius) {
-        if (dist < 6) {
+        if (dist < 8 && !isMobile || dist < 30) {
             this.dragging = true;
             this.dragOffset.set(this.position.copy().sub(mousePosition));
         }

@@ -29,6 +29,15 @@ export function html (tag, attributes = null, children = null) {
     return elem;
 }
 
+export function getPng (canvas) {
+    const data = canvas.toDataURL('image/png');
+    const a = html('a', {download: 'img.png', href: data, style: 'display:none'});
+
+    document.body.appendChild(a);
+    a.click();
+    a.parentNode.removeChild(a);
+}
+
 function addAttributes (elem, attributes) {
     Object.keys(attributes).forEach(key => {
         switch (key) {

@@ -1,4 +1,4 @@
-import { createCanvas } from './helper.js';
+import { createCanvas, getPng } from './helper.js';
 import { createTogglePanelButton, createControlPanel } from './ui.js';
 import Vector from './vector.js';
 import Oscillator from './oscillator.js';
@@ -72,6 +72,12 @@ function createSketch ({ctx}) {
     // ui
     createControlPanel({
         mesh: mesh, oscillator: osc1,
+        eraseFn: _ => { clean(); },
+        animationToggleFn: _ => { animation.toggle(); },
+        saveImgFn: _ => {
+            if (animation.animating) animation.stop();
+            getPng(ctx.canvas);
+        },
         updateFn: _ => {
             clean();
             mesh.setup();

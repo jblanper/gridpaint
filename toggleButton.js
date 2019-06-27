@@ -26,9 +26,9 @@ export default class ToggleButton {
 
         if (!this.value) {
             this.node.classList.add('deactivated')
-            this.node.textContent = this.labelFalse
+            this.node.innerHTML = this.labelFalse
         } else {
-            this.node.textContent = this.labelTrue
+            this.node.innerHTML = this.labelTrue
         };
 
         this.parent.appendChild(this.node);
@@ -43,8 +43,8 @@ export default class ToggleButton {
 
         this.value = !this.value
 
-        if (!this.value) this.node.textContent = this.labelFalse;
-        else this.node.textContent = this.labelTrue;
+        if (!this.value) this.node.innerHTML = this.labelFalse;
+        else this.node.innerHTML = this.labelTrue;
 
         if (this.scope) this.scope[this.prop] = this.value;
 

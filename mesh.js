@@ -166,18 +166,38 @@ export default class Mesh {
 
     // drag functionality
     setDragging () {
-        document.addEventListener('mousedown', e => {
+        this.ctx.canvas.addEventListener('touchstart', e => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            this.particles.forEach(p => p.handleClick(touch.pageX, touch.pageY, true));
+
+        });
+
+        this.ctx.canvas.addEventListener('touchmove', e => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            this.particles.forEach(p => p.handleDrag(touch.pageX, touch.pageY));
+        });
+
+        this.ctx.canvas.addEventListener('touchend', e => {
+            e.preventDefault();
+            this.particles.forEach(p => p.stopDragging());
+        });
+
+        this.ctx.canvas.addEventListener('mousedown', e => {
             if (e.buttons === 1) {
                 this.particles.forEach(p => p.handleClick(e.clientX, e.clientY));
             }
         });
 
-        document.addEventListener('mousemove', e => {
+        this.ctx.canvas.addEventListener('mousemove', e => {
             this.particles.forEach(p => p.handleDrag(e.clientX, e.clientY));
         });
 
-        document.addEventListener('mouseup', e => {
+
+        this.ctx.canvas.addEventListener('mouseup', e => {
             this.particles.forEach(p => p.stopDragging());
         });
+
     }
 }
