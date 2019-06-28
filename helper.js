@@ -18,7 +18,13 @@ export function circle (ctx, radius, point) {
     ctx.beginPath();
     ctx.arc(point.x, point.y, radius, 0, Math.PI * 2, false);
     ctx.closePath();
-};
+}
+
+export function getRandomNum (min, max, round = true) {
+    return (round)
+        ? Math.floor(Math.random() * (max - min + 1) + min)
+        : Math.random() * (max - min) + min;
+}
 
 export function html (tag, attributes = null, children = null) {
     const elem = document.createElement(tag);

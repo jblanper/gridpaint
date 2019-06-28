@@ -1,7 +1,10 @@
-import Slider from './slider.js';
-import ToggleButton from './toggleButton.js';
-import Button from './button.js';
+import Slider from './ui/slider.js';
+import ToggleButton from './ui/toggleButton.js';
+import Button from './ui/button.js';
+import { icons } from './ui/icons.js';
+import { getRandomNum } from './helper.js';
 
+// functions
 function createEmptyPanel (label) {
     const ui = document.querySelector('#ui');
     const div = document.createElement('div');
@@ -13,35 +16,40 @@ function createEmptyPanel (label) {
     return div;
 }
 
+function setRandomSliderValue (slider, min = slider.min, max = slider.max) {
+    slider.input.value = getRandomNum(min, max, false);
+    slider.eventHandler();
+}
+
 export function createControlPanel ({
     mesh, oscillator, updateFn, eraseFn, animationToggleFn, saveImgFn
 }) {
 
-    const intro = document.querySelector('#intro');
+    const buttonsDiv = document.querySelector('#buttons');
 
     const erase = new Button({
-        parent: intro, fn: eraseFn, updateFn: null, label: 'erase'
+        parent: buttonsDiv, fn: eraseFn, updateFn: null, label: icons.erase 
     });
 
     const toggleAnimation = new ToggleButton({
-        parent: intro, prop: 'toggle-animation-btn', value: true,
-        labelTrue: 'pause', labelFalse: 'play',
+        parent: buttonsDiv, prop: 'toggle-animation-btn', value: true,
+        labelTrue: icons.pause, labelFalse: icons.play,
         updateFn: animationToggleFn
     });
 
     const saveImg = new Button({
-        parent: intro, fn: saveImgFn, updateFn: null, label: 'get PNG'
+        parent: buttonsDiv, fn: saveImgFn, updateFn: null, label: icons.saveImg
     });
 
     const div1 = createEmptyPanel('Grid options');
 
     const rowNum = new Slider({
-        parent: div1, max: 40, min: 2, value: 10, label: 'row #',
+        parent: div1, max: 30, min: 2, value: 10, label: 'row #',
         prop: 'rowNumber', scope: mesh, updateFn: updateFn
     });
 
     const sep = new Slider({
-        parent: div1, max: 45, min: 10, value: 35, label: 'nodes distance',
+        parent: div1, max: 65, min: 10, value: 35, label: 'nodes distance',
         prop: 'sep', scope: mesh, updateFn: updateFn
     });
 
@@ -86,11 +94,26 @@ export function createControlPanel ({
         updateFn: updateFn
     });
 
+    const randomOptions = new Button({
+        parent: buttonsDiv, updateFn: null, label: icons.randomOptions,
+        fn: _ => {
+            setRandomSliderValue(rowNum);
+            setRandomSliderValue(sep);
+            setRandomSliderValue(radius);
+            setRandomSliderValue(lineWidth);
+            setRandomSliderValue(structuralSprings);
+            setRandomSliderValue(shearSprings);
+            setRandomSliderValue(bendSprings);
+            setRandomSliderValue(oscAngleVel);
+            setRandomSliderValue(oscVshift, 87.5, 167.5);
+        }
+    });
+
     return {
         rowNum, sep, radius, lineWidth,
         structuralSprings, shearSprings, bendSprings,
         oscAngleVel, oscVshift,
-        erase, toggleAnimation
+        erase, toggleAnimation, saveImg, randomOptions
     };
 }
 
@@ -100,7 +123,7 @@ export function createTogglePanelButton () {
 
     const toggleButton = new ToggleButton({
         parent: togglePanelDiv, prop: 'toggle-panel-btn', value: false,
-        labelTrue: 'O', labelFalse: 'X',
+        labelTrue: icons.circleSolid, labelFalse: icons.cross,
         updateFn: function () {
             if (this.value) panel.classList.add('hide'); 
             else panel.classList.remove('hide'); 

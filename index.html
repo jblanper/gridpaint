@@ -27,7 +27,7 @@ canvas {
   display: flex;
   background-color: #ffffffdd;
   transition: all 800ms ease-out;
-  padding-bottom: 60px;
+  padding-bottom: 120px;
   margin-right: 5em;
 }
 
@@ -47,7 +47,7 @@ canvas {
   justify-content: space-around;
 }
 
-#ui div {
+#ui > div {
   width: 18em;
   padding: 10px;
 }
@@ -64,6 +64,11 @@ canvas {
 #intro h1 {
   font-size: 150%;
 }
+#intro #buttons {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap
+}
 
 .slider, p, h1 { padding: 3px; }
 
@@ -71,16 +76,20 @@ input[type="range"] { width: 15em; }
 
 button {
   background-color: #fff;
-  border: 3px solid #000;
-  padding: 1ex;
-  margin: 10px 5px 10px 0;
+  border: 3px solid #838383;
+  padding: 8px;
+  margin: 10px 5px 0 0;
+  width: 20%;
+  color: #838383;
 }
 
 #toggle-panel { width: 0px; }
 
 #toggle-panel-btn {
-  width: 2.5em;
+  width: 3em;
   margin: 5px;
+  padding: 5px 8px;
+  border: none;
 }
 
 .toggle {
@@ -91,8 +100,8 @@ button {
 
 button:hover {
   color: #fff;
-  border-color: #000;
   background-color: #000;
+  border-color: #000;
 }
 
 .deactivated {
@@ -104,19 +113,28 @@ button:hover {
 #signature {
   position: absolute;
   bottom: 10px;
-  left: 45%;
+  left: calc(50% - 6em);
+  width: 12em;
 }
 
-#signature:hover {
-    color: #6da0bd;
+#signature a, #icons-by {
+  text-align: center;
+  display: block;
 }
 
-#signature:hover path {
-    fill: #6da0bd;
+#signature a:hover {
+  color: #6da0bd;
 }
+
+#signature a:hover path {
+  fill: #6da0bd;
+}
+
+#icons-by { font-size: 10px; }
   </style>
 </head>
 <body>
+  <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div><script src="https://button.glitch.me/button.js"></script>
   <div id="panel">
     <div id="ui">
       <div id="intro">
@@ -124,13 +142,15 @@ button:hover {
         <p>Experimental drawing web app using a grid of points connected by springs modeled after cloth physics.</p>
         <p>Grab the nodes with the mouse and move the grid to draw a design. The color oscillates from white to black. The strength of the springs can be modified with the sliders.</p>
         <p>Keys: "e" (erase), "r" (reload), "space" (pause)</p>
+        <div id="buttons"></div>
       </div>
     </div>
     <div id="toggle-panel"></div>
-    <div>
-      <a id="signature" href="https://www.joseblancoperales.com">
+    <div id="signature">
+      <a href="https://www.joseblancoperales.com">
         <svg width="50" height="50" version="1.1" viewBox="0 0 13.229166 13.229167" xmlns="http://www.w3.org/2000/svg"><g><circle cx="6.6146" cy="6.6146" r="6.6146" fill="#fff" style="paint-order:normal"/><path d="m6.6152 0.023438c-3.6369 0-6.5918 2.9548-6.5918 6.5918 0 3.6369 2.9548 6.5898 6.5918 6.5898 3.6369 0 6.5898-2.9529 6.5898-6.5898 0-3.6369-2.9529-6.5918-6.5898-6.5918zm0 0.50781c3.363 0 6.084 2.721 6.084 6.084s-2.721 6.084-6.084 6.084-6.084-2.721-6.084-6.084 2.721-6.084 6.084-6.084z" color="#000000" color-rendering="auto" dominant-baseline="auto" fill="#800000" image-rendering="auto" shape-rendering="auto" solid-color="#000000" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;isolation:auto;mix-blend-mode:normal;paint-order:normal;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/><g id="logo-body" transform="translate(-.19844 .19844)" fill="#800000"><path d="m8.1166 5.4546v5.6823c1.5655-0.0045 2.8332-1.2747 2.8332-2.8411 0-1.5665-1.2678-2.8369-2.8332-2.8411z"/><path d="m8.1204 1.6954v3.2544c0.89579-0.00377 1.6209-0.7306 1.6209-1.6272 0-0.89658-0.72514-1.6238-1.6209-1.6272z"/><path d="m5.8204 1.6958v6.996a0.81365 0.81365 0 0 1 -0.8137 0.8137 0.81365 0.81365 0 0 1 -0.8137 -0.8137l-1.5168 0.72437a2.4409 2.4409 0 0 0 2.3305 1.7167 2.4409 2.4409 0 0 0 2.4411 -2.4411v-6.996z" style="paint-order:normal"/></g></g></svg>
       </a>
+      <p id="icons-by">Menu icons by <a href="https://fontawesome.com/license/free">Font Awesome</a></p>
     </div>
   </div>
   <canvas></canvas>
