@@ -28,17 +28,19 @@ export function createControlPanel ({
     const buttonsDiv = document.querySelector('#buttons');
 
     const erase = new Button({
-        parent: buttonsDiv, fn: eraseFn, updateFn: null, label: icons.erase 
+        parent: buttonsDiv, fn: eraseFn, updateFn: null, label: icons.erase,
+        title: 'erase', id: 'erase'
     });
 
     const toggleAnimation = new ToggleButton({
         parent: buttonsDiv, prop: 'toggle-animation-btn', value: true,
         labelTrue: icons.pause, labelFalse: icons.play,
-        updateFn: animationToggleFn
+        updateFn: animationToggleFn, title: 'play/pause'
     });
 
     const saveImg = new Button({
-        parent: buttonsDiv, fn: saveImgFn, updateFn: null, label: icons.saveImg
+        parent: buttonsDiv, fn: saveImgFn, updateFn: null, label: icons.saveImg,
+        title: 'download png', id: 'saveImg'
     });
 
     const div1 = createEmptyPanel('Grid options');
@@ -96,6 +98,7 @@ export function createControlPanel ({
 
     const randomOptions = new Button({
         parent: buttonsDiv, updateFn: null, label: icons.randomOptions,
+        title: 'randomize values', id: 'randomOptions',
         fn: _ => {
             setRandomSliderValue(rowNum);
             setRandomSliderValue(sep);
@@ -123,7 +126,7 @@ export function createTogglePanelButton () {
 
     const toggleButton = new ToggleButton({
         parent: togglePanelDiv, prop: 'toggle-panel-btn', value: false,
-        labelTrue: icons.circleSolid, labelFalse: icons.cross,
+        labelTrue: icons.circleSolid, labelFalse: icons.cross, title: 'open/close menu',
         updateFn: function () {
             if (this.value) panel.classList.add('hide'); 
             else panel.classList.remove('hide'); 

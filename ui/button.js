@@ -1,11 +1,13 @@
 import { html } from '../helper.js';
 
 export default class Button {
-    constructor ({parent, fn, updateFn = null, label}) {
+    constructor ({parent, fn, updateFn = null, label, title = null, id}) {
         this.fn = fn;
         this.updateFn = updateFn;
 
         this.label = label;
+        this.id = id;
+        this.title = title;
 
         this.node = null;
         this.parent = parent;
@@ -16,9 +18,12 @@ export default class Button {
 
     render () {
         this.node = html('button', {
-            id: this.label.replace(/\s/g, '-') 
+            id: this.id 
         }, null);
+
         this.node.innerHTML = this.label;
+
+        if (this.title) this.node.title = this.title;
 
         this.parent.appendChild(this.node);
     }
