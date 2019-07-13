@@ -61,7 +61,7 @@ function createSketch ({ctx}) {
 
     // bindings
     document.addEventListener('keyup', e => {
-        if (e.key == ' ') animation.toggle();
+        if (e.key == 's') animation.toggle();
         if (e.key == 'e') clean();
         if (e.key == 'r') {
             clean();
