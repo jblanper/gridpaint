@@ -16,6 +16,8 @@ function createSketch ({ctx}) {
     });
 
     // variables
+    let backgroundColor = 'white';
+
     let mesh = new Mesh({
         ctx: ctx, rowNumber: 10, sep: 35, radius: 2, lineWidth: .3,
         origin: origin,
@@ -32,7 +34,7 @@ function createSketch ({ctx}) {
 
     // methods
     const clean = _ => {
-        ctx.fillStyle = '#fff';
+        ctx.fillStyle = backgroundColor;
         ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     };
 
@@ -77,6 +79,15 @@ function createSketch ({ctx}) {
         saveImgFn: _ => {
             if (animation.animating) animation.stop();
             getPng(ctx.canvas);
+        },
+        restartFn: _ => {
+            clean();
+            mesh.setup();
+        },
+        invertFn: _ => {
+            if (backgroundColor === 'white') backgroundColor = 'black';
+            else backgroundColor = 'white';
+            clean();
         },
         updateFn: _ => {
             clean();
